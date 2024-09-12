@@ -47,10 +47,3 @@ export const Small = {
     label: 'Button',
   },
 };
-
-export const DBC = {
-  args:{
-    primary:false,
-    label:"Button"
-  }
-};
