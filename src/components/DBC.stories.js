@@ -8,19 +8,19 @@ export default {
   argTypes: {
     A: {
       control: 'boolean',
-      description: 'Variável positiva A'
+      description: 'Coluna A+ (Positiva)'
     },
     B: {
       control: 'boolean',
-      description: 'Variável negativa B'
+      description: 'Coluna B- (Negativa)'
     },
     p1Connected: {
       control: 'boolean',
-      description: 'Porta lógica P1 conectada'
+      description: 'Porta de conexão P1'
     },
     p2Connected: {
       control: 'boolean',
-      description: 'Porta lógica P2 conectada'
+      description: 'Porta de conexão P2'
     }
   }
 };
@@ -39,22 +39,38 @@ export const AllActive = Template.bind({});
 AllActive.args = {
   A: true,
   B: true,
-  p1Connected: true,
-  p2Connected: true
+  p1Connected: false,
+  p2Connected: false
 };
 
 export const OnlyPositive = Template.bind({});
 OnlyPositive.args = {
   A: true,
   B: false,
-  p1Connected: true,
-  p2Connected: true
+  p1Connected: false,
+  p2Connected: false
 };
 
 export const OnlyNegative = Template.bind({});
 OnlyNegative.args = {
   A: false,
   B: true,
-  p1Connected: true,
-  p2Connected: true
+  p1Connected: false,
+  p2Connected: false
+};
+
+export const LEDOn = Template.bind({});
+LEDOn.args = {
+  A: true,
+  B: true,
+  p1Connected: false,
+  p2Connected: false
+};
+
+export const LEDOff = Template.bind({});
+LEDOff.args = {
+  A: true,
+  B: false,
+  p1Connected: false,
+  p2Connected: false
 };

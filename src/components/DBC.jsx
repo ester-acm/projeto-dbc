@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const BoardContainer = styled.div`
-  width: 300px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   background-color: #00979D;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  position: relative;
 `;
 
 const ColumnContainer = styled.div`
@@ -45,12 +46,26 @@ const StatusContainer = styled.div`
   color: white;
 `;
 
+const LED = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: ${props => props.active ? '#00FF00' : '#333333'};
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: ${props => props.active ? '0 0 10px #00FF00' : 'none'};
+`;
+
 const DBC = ({ A, B, p1Connected, p2Connected }) => {
   const energyA = A ? 'Positiva' : 'Desligada';
   const energyB = B ? 'Negativa' : 'Desligada';
   
-  const p1Status = p1Connected ? (A ? 'Energizada (Positiva)' : 'Não energizada') : 'Desconectada';
-  const p2Status = p2Connected ? (B ? 'Energizada (Negativa)' : 'Não energizada') : 'Desconectada';
+  const p1Status = p1Connected ? 'Conectada' : 'Desconectada';
+  const p2Status = p2Connected ? 'Conectada' : 'Desconectada';
+
+  const ledActive = A && B;
 
   return (
     <BoardContainer>
@@ -70,22 +85,17 @@ const DBC = ({ A, B, p1Connected, p2Connected }) => {
         <Column>
           <Label>P1</Label>
           {[...Array(10)].map((_, index) => (
-            <Pin key={`p1-${index}`} active={p1Connected && A} />
+            <Pin key={`p1-${index}`} active={p1Connected} />
           ))}
         </Column>
         <Column>
           <Label>P2</Label>
           {[...Array(10)].map((_, index) => (
-            <Pin key={`p2-${index}`} active={p2Connected && B} />
+            <Pin key={`p2-${index}`} active={p2Connected} />
           ))}
         </Column>
       </ColumnContainer>
-      <StatusContainer>
-        <div>Variável A (Positiva): {energyA}</div>
-        <div>Variável B (Negativa): {energyB}</div>
-        <div>Porta P1: {p1Status}</div>
-        <div>Porta P2: {p2Status}</div>
-      </StatusContainer>
+      <LED active={ledActive} />
     </BoardContainer>
   );
 };
